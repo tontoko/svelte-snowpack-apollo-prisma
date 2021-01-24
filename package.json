@@ -1,0 +1,45 @@
+{
+  "name": "ticket-app2",
+  "version": "1.0.0",
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.14.0",
+    "@typescript-eslint/parser": "^4.14.0",
+    "eslint": "^7.18.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^5.0.0",
+    "husky": "^4.3.8",
+    "lint-staged": "^10.5.3",
+    "npm": "^7.4.3",
+    "prettier": "^2.2.1",
+    "typescript": "^4.1.3",
+    "prettier-plugin-svelte": "^2.1.1",
+    "eslint-plugin-svelte3": "^3.0.0",
+    "svelte": "^3.31.2"
+  },
+  "lint-staged": {
+    "*.{ts|prisma}": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.svelte": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
+}
