@@ -1,6 +1,4 @@
 {
-  "name": "typescript-graphql",
-  "license": "MIT",
   "scripts": {
     "start": "node dist/server",
     "clean": "rm -rf dist",
