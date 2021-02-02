@@ -2,10 +2,13 @@
   "scripts": {
     "start": "snowpack dev",
     "build": "snowpack build",
+    "add": "snowpack add",
     "test": "web-test-runner \"src/**/*.test.ts\""
   },
   "devDependencies": {
+    "@shoelace-style/shoelace": "^2.0.0-beta.26",
     "@snowpack/plugin-dotenv": "^2.0.5",
+    "@snowpack/plugin-postcss": "^1.1.0",
     "@snowpack/plugin-sass": "^1.3.0",
     "@snowpack/plugin-svelte": "^3.5.2",
     "@snowpack/plugin-typescript": "^1.2.1",
@@ -17,9 +20,8 @@
     "@web/test-runner": "^0.12.7",
     "chai": "^4.2.0",
     "snowpack": "^3.0.11",
-    "svelte": "^3.32.0",
-    "svelte-preprocess": "^4.6.3",
-    "svelte-spa-router": "^3.1.0",
-    "@shoelace-style/shoelace": "^2.0.0-beta.26"
+    "svelte": "^3.32.1",
+    "svelte-preprocess": "^4.6.5",
+    "svelte-spa-router": "^3.1.0"
   }
 }

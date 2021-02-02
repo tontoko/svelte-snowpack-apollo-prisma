@@ -22,6 +22,8 @@ module.exports = {
   },
   packageOptions: {
     /* ... */
+    // "source": "remote",
+    // "types": true,
   },
   devOptions: {
     /* ... */
@@ -29,4 +31,9 @@ module.exports = {
   buildOptions: {
     /* ... */
   },
+  // alias: {
+  //   "components": "./src/components",
+  //   "pages": "./src/pages",
+  //   "src": "./src*"
+  // }
 };

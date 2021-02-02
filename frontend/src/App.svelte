@@ -5,5 +5,9 @@
 
 <Router routes="{routes}" />
 
-<style global>
+<style>
+  :global(body) {
+    font-family: Roboto, sans-serif;
+    margin: 0;
+  }
 </style>
