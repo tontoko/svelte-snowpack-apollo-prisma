@@ -1,52 +1,48 @@
 <script>
+  import { link } from 'svelte-spa-router'
+  import { fade } from 'svelte/transition'
 </script>
 
-<main>
-  <div class="l-screen1">
-    <div class="l-screen1-band">
-      <h1>
-        意外な一面<br />
-        見つかるかも？
-      </h1>
-      <div class="l-screen1-icon-wrapper">
-        <a href="#"><img src="images/slack.svg" alt="slack" /></a>
-        <a href="#"><img src="images/teams.svg" alt="teams" /></a>
-      </div>
-      <button>アイスブレイクを始める</button>
+<div class="l-screen1" in:fade="{{ duration: 200 }}">
+  <div class="l-screen1-band">
+    <h1>
+      意外な一面<br />
+      見つかるかも？
+    </h1>
+    <div class="l-screen1-icon-wrapper">
+      <a href="#"><img src="images/slack.svg" alt="slack" /></a>
+      <a href="#"><img src="images/teams.svg" alt="teams" /></a>
     </div>
+    <a href="/game/chose" use:link><button>アイスブレイクを始める</button></a>
   </div>
-  <div class="l-screen2">
-    <p class="font-large">
-      コロナ禍においてリモートワークが普及し、<br />
-      ますますメンバー同士のコミュニケーションが重要視されています。
-    </p>
-    <p class="font-x-large">
-      メンバーと気軽に話せる関係性、<br />
-      築けていますか？
-    </p>
-    <p class="font-large">
-      アイスブレイクゲームを行って、メンバーのことを<br />
-      もっとよく知りましょう。<br />
-      まずは雑談から。<br />
-      気軽に相談できる関係性を築きませんか。
-    </p>
-  </div>
-  <div class="l-screen3">
-    <div class="l-screen3-cover">
-      <div class="l-screen3-icon-wrapper">
-        <a href="#"><img src="images/slack.svg" alt="slack" /></a>
-        <a href="#"><img src="images/teams.svg" alt="teams" /></a>
-      </div>
-      <button>アイスブレイクを始める</button>
+</div>
+<div class="l-screen2">
+  <p class="font-large">
+    コロナ禍においてリモートワークが普及し、<br />
+    ますますメンバー同士のコミュニケーションが重要視されています。
+  </p>
+  <p class="font-x-large">
+    メンバーと気軽に話せる関係性、<br />
+    築けていますか？
+  </p>
+  <p class="font-large">
+    アイスブレイクゲームを行って、メンバーのことを<br />
+    もっとよく知りましょう。<br />
+    まずは雑談から。<br />
+    気軽に相談できる関係性を築きませんか。
+  </p>
+</div>
+<div class="l-screen3">
+  <div class="l-screen3-cover">
+    <div class="l-screen3-icon-wrapper">
+      <a href="#"><img src="images/slack.svg" alt="slack" /></a>
+      <a href="#"><img src="images/teams.svg" alt="teams" /></a>
     </div>
+    <a href="/game/chose" use:link><button>アイスブレイクを始める</button></a>
   </div>
-</main>
+</div>
 
 <style lang="scss">
-  main {
-    display: flex;
-    flex-direction: column;
-  }
   button {
     color: var(--sl-color-white);
     background-color: var(--sl-color-black);
@@ -55,8 +51,8 @@
     border-radius: 50px;
     padding: 10px 30px;
     margin-top: 20px;
-    cursor: pointer;
     font-weight: var(--sl-font-weight-bold);
+    cursor: pointer;
   }
   .l-screen1 {
     display: flex;
@@ -80,7 +76,7 @@
         font-size: var(--sl-font-size-xxxx-large);
         color: var(--sl-color-black);
         margin-top: 24px;
-        letter-spacing: 30px;
+        letter-spacing: 20px;
         line-height: 120px;
       }
     }

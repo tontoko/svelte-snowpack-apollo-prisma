@@ -7,6 +7,9 @@ import Home from './pages/Home.svelte'
 
 export const routes = {
   '/': Home,
+  '/game/chose': wrap({
+    asyncComponent: () => import('./pages/game/Chose.svelte'),
+  }),
 
   // Wrapping the Author component
   // '/author/:first/:last?': wrap({

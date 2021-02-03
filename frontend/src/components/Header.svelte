@@ -1,9 +1,14 @@
 <script>
-  export let page: 'Home'
+  import { link, location } from 'svelte-spa-router'
+  let page: 'Home' | 'Game'
+  location.subscribe((path) => {
+    if (path === '/') page = 'Home'
+    page = 'Game'
+  })
 </script>
 
 <header>
-  <img src="images/logo.svg" alt="logo" />
+  <a href="/" use:link><img src="images/logo.svg" alt="logo" /></a>
 </header>
 
 <style>
@@ -15,6 +20,7 @@
     width: 100%;
     background-color: var(--sl-color-black);
     align-items: center;
+    z-index: 100;
   }
   img {
     margin-left: 30px;
