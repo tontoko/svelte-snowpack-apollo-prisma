@@ -1,38 +1,13 @@
 <script>
+  import useQuery from '../../libs/useQuery'
+
   import { fade } from 'svelte/transition'
   import { openToast } from '../../components/Toast.svelte'
+  const gamesForFirstMeeting = useQuery('AllGameQuery', { categoryName: 'firstMeeting' })
+  const gamesForGetToKnow = useQuery('AllGameQuery', { categoryName: 'getToKnow' })
+  let categories: 'firstMeeting' | 'getToKnow'
 
-  // table
-  let purpose: 'firstMeeting' | 'getToKnow'
-
-  // table
-  const games = [
-    {
-      name: '「実は・・・」自己紹介',
-      description: '「実は・・・」で始まるエピソードを盛り込んだ自己紹介をしてもらいます。',
-      category: ['firstMeeting', 'getToKnow'],
-      evaluation: 4,
-      game_id: 1,
-    },
-    {
-      name: 'ウソ、ホント？',
-      description:
-        '自分について4つの事実を箇条書きしてもらいます。ただし、そのうちの一つはウソ。どれが嘘か見抜けるでしょうか？',
-      category: ['firstMeeting'],
-      evaluation: 2,
-      game_id: 2,
-    },
-    {
-      name: '他己紹介',
-      description:
-        '参加者でペアを作り、お互いをインタビューします。その後、全員の前でインタビュー相手の紹介をします。今まで知らなかった相手のことを聴けるチャンス！',
-      category: ['getToKnow'],
-      evaluation: 3,
-      game_id: 3,
-    },
-  ]
-
-  const setPurpose = (input: typeof purpose) => (purpose = input)
+  const setPurpose = (input: typeof categories) => (categories = input)
   const handleEvaluation = (id: number, value: number) => openToast({ text: '評価して頂き、ありがとうございます！' })
 </script>
 
@@ -47,34 +22,40 @@
 </div>
 
 <div class="l-cards-wrapper">
-  {#if purpose === 'firstMeeting'}
-    {#each games as { name, description, evaluation, game_id }}
-      <sl-card class="card-header card-footer" in:fade="{{ duration: 200 }}">
-        <div slot="header">{name}</div>
-        {description}
-        <div slot="footer">
-          <sl-rating
-            value="{evaluation}"
-            on:sl-change="{// @ts-ignore
-            (e) => handleEvaluation(game_id, e.target.value)}"></sl-rating>
-          <sl-button slot="footer" type="primary">Start!</sl-button>
-        </div>
-      </sl-card>
-    {/each}
-  {:else if purpose === 'getToKnow'}
-    {#each games as { name, description, evaluation, game_id }}
-      <sl-card class="card-header card-footer" in:fade="{{ duration: 200 }}">
-        <div slot="header">{name}</div>
-        {description}
-        <div slot="footer">
-          <sl-rating
-            value="{evaluation}"
-            on:sl-change="{// @ts-ignore
-            (e) => handleEvaluation(game_id, e.target.value)}"></sl-rating>
-          <sl-button slot="footer" type="primary">Start!</sl-button>
-        </div>
-      </sl-card>
-    {/each}
+  {#if categories === 'firstMeeting'}
+    {#await $gamesForFirstMeeting}
+      <p>waiting...</p>
+    {:then { games }}
+      {#each games as { name, description, id }}
+        <sl-card class="card-header card-footer" in:fade="{{ duration: 200 }}">
+          <div slot="header">{name}</div>
+          {description}
+          <div slot="footer">
+            <sl-rating
+              on:sl-change="{// @ts-ignore
+              (e) => handleEvaluation(id, e.target.value)}"></sl-rating>
+            <sl-button slot="footer" type="primary">Start!</sl-button>
+          </div>
+        </sl-card>
+      {/each}
+    {/await}
+  {:else if categories === 'getToKnow'}
+    {#await $gamesForGetToKnow}
+      <p>waiting...</p>
+    {:then { games }}
+      {#each games as { name, description, id }}
+        <sl-card class="card-header card-footer" in:fade="{{ duration: 200 }}">
+          <div slot="header">{name}</div>
+          {description}
+          <div slot="footer">
+            <sl-rating
+              on:sl-change="{// @ts-ignore
+              (e) => handleEvaluation(id, e.target.value)}"></sl-rating>
+            <sl-button slot="footer" type="primary">Start!</sl-button>
+          </div>
+        </sl-card>
+      {/each}
+    {/await}
   {/if}
 </div>
 

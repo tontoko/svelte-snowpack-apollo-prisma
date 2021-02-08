@@ -2,58 +2,278 @@
 ### Do not make changes to this file directly
 
 
+type Category {
+  createdAt: DateTime!
+  games: [Game!]!
+  id: Int!
+  name: String!
+  updatedAt: DateTime!
+}
+
+input CategoryCreateInput {
+  createdAt: DateTime
+  games: GameCreateNestedManyWithoutCategoriesInput
+  name: String!
+  updatedAt: DateTime
+}
+
+input CategoryCreateNestedManyWithoutGamesInput {
+  connect: [CategoryWhereUniqueInput!]
+  connectOrCreate: [CategoryCreateOrConnectWithoutgamesInput!]
+  create: [CategoryCreateWithoutGamesInput!]
+}
+
+input CategoryCreateOrConnectWithoutgamesInput {
+  create: CategoryCreateWithoutGamesInput!
+  where: CategoryWhereUniqueInput!
+}
+
+input CategoryCreateWithoutGamesInput {
+  createdAt: DateTime
+  name: String!
+  updatedAt: DateTime
+}
+
+input CategoryListRelationFilter {
+  every: CategoryWhereInput
+  none: CategoryWhereInput
+  some: CategoryWhereInput
+}
+
+input CategoryWhereInput {
+  AND: [CategoryWhereInput!]
+  NOT: [CategoryWhereInput!]
+  OR: [CategoryWhereInput!]
+  createdAt: DateTimeFilter
+  games: GameListRelationFilter
+  id: IntFilter
+  name: StringFilter
+  updatedAt: DateTimeFilter
+}
+
+input CategoryWhereUniqueInput {
+  id: Int
+}
+
+scalar DateTime
+
+input DateTimeFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeFilter
+  notIn: [DateTime!]
+}
+
+type Game {
+  categories: [Category!]!
+  createdAt: DateTime!
+  description: String!
+  game_evaluation: [GameEvaluation!]!
+  id: Int!
+  name: String!
+  updatedAt: DateTime!
+}
+
+input GameCreateInput {
+  categories: CategoryCreateNestedManyWithoutGamesInput
+  createdAt: DateTime
+  description: String
+  game_evaluation: GameEvaluationCreateNestedManyWithoutGameInput
+  name: String!
+  updatedAt: DateTime
+}
+
+input GameCreateNestedManyWithoutCategoriesInput {
+  connect: [GameWhereUniqueInput!]
+  connectOrCreate: [GameCreateOrConnectWithoutcategoriesInput!]
+  create: [GameCreateWithoutCategoriesInput!]
+}
+
+input GameCreateNestedOneWithoutGame_evaluationInput {
+  connect: GameWhereUniqueInput
+  connectOrCreate: GameCreateOrConnectWithoutgame_evaluationInput
+  create: GameCreateWithoutGame_evaluationInput
+}
+
+input GameCreateOrConnectWithoutcategoriesInput {
+  create: GameCreateWithoutCategoriesInput!
+  where: GameWhereUniqueInput!
+}
+
+input GameCreateOrConnectWithoutgame_evaluationInput {
+  create: GameCreateWithoutGame_evaluationInput!
+  where: GameWhereUniqueInput!
+}
+
+input GameCreateWithoutCategoriesInput {
+  createdAt: DateTime
+  description: String
+  game_evaluation: GameEvaluationCreateNestedManyWithoutGameInput
+  name: String!
+  updatedAt: DateTime
+}
+
+input GameCreateWithoutGame_evaluationInput {
+  categories: CategoryCreateNestedManyWithoutGamesInput
+  createdAt: DateTime
+  description: String
+  name: String!
+  updatedAt: DateTime
+}
+
+type GameEvaluation {
+  createdAt: DateTime!
+  game: Game!
+  id: Int!
+  updatedAt: DateTime!
+  value: Int!
+}
+
+input GameEvaluationCreateInput {
+  createdAt: DateTime
+  game: GameCreateNestedOneWithoutGame_evaluationInput!
+  updatedAt: DateTime
+  value: Int!
+}
+
+input GameEvaluationCreateNestedManyWithoutGameInput {
+  connect: [GameEvaluationWhereUniqueInput!]
+  connectOrCreate: [GameEvaluationCreateOrConnectWithoutgameInput!]
+  create: [GameEvaluationCreateWithoutGameInput!]
+}
+
+input GameEvaluationCreateOrConnectWithoutgameInput {
+  create: GameEvaluationCreateWithoutGameInput!
+  where: GameEvaluationWhereUniqueInput!
+}
+
+input GameEvaluationCreateWithoutGameInput {
+  createdAt: DateTime
+  updatedAt: DateTime
+  value: Int!
+}
+
+input GameEvaluationListRelationFilter {
+  every: GameEvaluationWhereInput
+  none: GameEvaluationWhereInput
+  some: GameEvaluationWhereInput
+}
+
+input GameEvaluationWhereInput {
+  AND: [GameEvaluationWhereInput!]
+  NOT: [GameEvaluationWhereInput!]
+  OR: [GameEvaluationWhereInput!]
+  createdAt: DateTimeFilter
+  game: GameWhereInput
+  game_id: IntFilter
+  id: IntFilter
+  updatedAt: DateTimeFilter
+  value: IntFilter
+}
+
+input GameEvaluationWhereUniqueInput {
+  id: Int
+}
+
+input GameListRelationFilter {
+  every: GameWhereInput
+  none: GameWhereInput
+  some: GameWhereInput
+}
+
+input GameWhereInput {
+  AND: [GameWhereInput!]
+  NOT: [GameWhereInput!]
+  OR: [GameWhereInput!]
+  categories: CategoryListRelationFilter
+  createdAt: DateTimeFilter
+  description: StringFilter
+  game_evaluation: GameEvaluationListRelationFilter
+  id: IntFilter
+  name: StringFilter
+  updatedAt: DateTimeFilter
+}
+
+input GameWhereUniqueInput {
+  id: Int
+}
+
+input IntFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntFilter
+  notIn: [Int!]
+}
+
 type Mutation {
-  createDraft(authorEmail: String!, content: String, title: String!): Post
-  deleteOnePost(where: PostWhereUniqueInput!): Post
-  publish(id: Int): Post
-  signupUser(data: UserCreateInput!): User
+  createOneCategory(data: CategoryCreateInput!): Category!
+  createOneGame(data: GameCreateInput!): Game!
+  evaluate(data: GameEvaluationCreateInput!): GameEvaluation!
 }
 
-type Post {
-  author: User
-  authorId: Int
-  content: String
-  id: Int
-  published: Boolean
-  title: String
+input NestedDateTimeFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeFilter
+  notIn: [DateTime!]
 }
 
-input PostCreateManyWithoutAuthorInput {
-  connect: [PostWhereUniqueInput!]
-  connectOrCreate: [PostCreateOrConnectWithoutauthorInput!]
-  create: [PostCreateWithoutAuthorInput!]
+input NestedIntFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntFilter
+  notIn: [Int!]
 }
 
-input PostCreateOrConnectWithoutauthorInput {
-  create: PostCreateWithoutAuthorInput!
-  where: PostWhereUniqueInput!
-}
-
-input PostCreateWithoutAuthorInput {
-  content: String
-  published: Boolean
-  title: String!
-}
-
-input PostWhereUniqueInput {
-  id: Int
+input NestedStringFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: NestedStringFilter
+  notIn: [String!]
+  startsWith: String
 }
 
 type Query {
-  feed: [Post]
-  filterPosts(searchString: String): [Post]
-  post(where: PostWhereUniqueInput!): Post
+  averageEvaluation(game: Int!): Int
+  categories(after: CategoryWhereUniqueInput, before: CategoryWhereUniqueInput, first: Int, last: Int, where: CategoryWhereInput): [Category!]!
+  category(where: CategoryWhereUniqueInput!): Category
+  game(where: GameWhereUniqueInput!): Game
+  gameEvaluations(after: GameEvaluationWhereUniqueInput, before: GameEvaluationWhereUniqueInput, first: Int, last: Int, where: GameEvaluationWhereInput): [GameEvaluation!]!
+  games(after: GameWhereUniqueInput, before: GameWhereUniqueInput, first: Int, last: Int, where: GameWhereInput): [Game!]!
 }
 
-type User {
-  email: String
-  id: Int
-  name: String
-  posts: [Post!]!
-}
-
-input UserCreateInput {
-  email: String!
-  name: String
-  posts: PostCreateManyWithoutAuthorInput
+input StringFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: NestedStringFilter
+  notIn: [String!]
+  startsWith: String
 }

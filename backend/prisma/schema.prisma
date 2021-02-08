@@ -7,18 +7,45 @@ datasource db {
   url      = "file:./dev.db"
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  posts Post[]
+// model User {
+//   id    Int     @id @default(autoincrement())
+//   email String  @unique
+//   name  String?
+//   posts Post[]
+// }
+
+// model Post {
+//   id        Int     @id @default(autoincrement())
+//   authorId  Int?
+//   content   String?
+//   published Boolean @default(false)
+//   title     String
+//   author    User?   @relation(fields: [authorId], references: [id])
+// }
+
+model Game {
+  id              Int              @id @default(autoincrement())
+  name            String
+  description     String           @default("")
+  categories      Category[]
+  game_evaluation GameEvaluation[]
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
 }
 
-model Post {
-  id        Int     @id @default(autoincrement())
-  authorId  Int?
-  content   String?
-  published Boolean @default(false)
-  title     String
-  author    User?   @relation(fields: [authorId], references: [id])
+model Category {
+  id        Int      @id @default(autoincrement())
+  name      String
+  games     Game[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model GameEvaluation {
+  id        Int      @id @default(autoincrement())
+  game      Game     @relation(fields: [game_id], references: [id])
+  game_id   Int
+  value     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
