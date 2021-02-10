@@ -1,14 +1,16 @@
 <script>
-  import useQuery from '../../libs/useQuery'
-
+  import { mutate, query } from '../../libs/graphQLClient'
   import { fade } from 'svelte/transition'
   import { openToast } from '../../components/Toast.svelte'
-  const gamesForFirstMeeting = useQuery('AllGameQuery', { categoryName: 'firstMeeting' })
-  const gamesForGetToKnow = useQuery('AllGameQuery', { categoryName: 'getToKnow' })
+  const gamesForFirstMeeting = query('AllGameQuery', { categoryName: 'firstMeeting' })
+  const gamesForGetToKnow = query('AllGameQuery', { categoryName: 'getToKnow' })
   let categories: 'firstMeeting' | 'getToKnow'
 
   const setPurpose = (input: typeof categories) => (categories = input)
-  const handleEvaluation = (id: number, value: number) => openToast({ text: '評価して頂き、ありがとうございます！' })
+  const handleEvaluation = async (id: number, value: number) => {
+    await mutate('Evalute', { id, value })
+    openToast({ text: '評価して頂き、ありがとうございます！' })
+  }
 </script>
 
 <div class="l-container" in:fade="{{ duration: 200 }}">

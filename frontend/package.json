@@ -3,6 +3,7 @@
     "start": "snowpack dev",
     "build": "snowpack build",
     "add": "snowpack add",
+    "codegen": "graphql-codegen --watch",
     "test": "web-test-runner \"src/**/*.test.ts\""
   },
   "devDependencies": {

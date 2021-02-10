@@ -13,3 +13,12 @@ export const AllGameQuery = gql`
     }
   }
 `
+
+export const Evalute = gql`
+  mutation Evalute($id: Int!, $value: Int!) {
+    evaluate(data: { value: $value, game: { connect: { id: $id } } }) {
+      id
+      value
+    }
+  }
+`
