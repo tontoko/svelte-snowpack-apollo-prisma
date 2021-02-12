@@ -1,8 +1,7 @@
 import { client } from '../graphql/client'
 import { Writable, writable } from 'svelte/store'
-import type { Exact } from 'src/generated/graphql'
 
-const cache = new Map<{ queryName: keyof typeof client; [key: string]: unknown }, unknown>()
+const cache = new Map<string, unknown>()
 
 export const query = <
   T extends keyof Pick<
@@ -20,13 +19,13 @@ export const query = <
 ): Writable<ReturnType<typeof client[T]>> => {
   const store = writable(new Promise(() => ({})))
 
-  if (cache.has({ queryName, ...arg })) {
-    store.set(Promise.resolve(cache.get({ queryName, ...arg })))
+  if (cache.has(JSON.stringify({ queryName, ...arg }))) {
+    store.set(Promise.resolve(cache.get(JSON.stringify({ queryName, ...arg }))))
   }
 
   const runQuery = async () => {
     const data = await client[queryName](arg as never, headers)
-    cache.set({ queryName, ...arg }, data)
+    cache.set(JSON.stringify({ queryName, ...arg }), data)
     store.set(Promise.resolve(data))
   }
 
