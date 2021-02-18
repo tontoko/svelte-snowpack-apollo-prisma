@@ -19,11 +19,11 @@ input CategoryCreateInput {
 
 input CategoryCreateNestedManyWithoutGamesInput {
   connect: [CategoryWhereUniqueInput!]
-  connectOrCreate: [CategoryCreateOrConnectWithoutgamesInput!]
+  connectOrCreate: [CategoryCreateOrConnectWithoutGamesInput!]
   create: [CategoryCreateWithoutGamesInput!]
 }
 
-input CategoryCreateOrConnectWithoutgamesInput {
+input CategoryCreateOrConnectWithoutGamesInput {
   create: CategoryCreateWithoutGamesInput!
   where: CategoryWhereUniqueInput!
 }
@@ -89,22 +89,22 @@ input GameCreateInput {
 
 input GameCreateNestedManyWithoutCategoriesInput {
   connect: [GameWhereUniqueInput!]
-  connectOrCreate: [GameCreateOrConnectWithoutcategoriesInput!]
+  connectOrCreate: [GameCreateOrConnectWithoutCategoriesInput!]
   create: [GameCreateWithoutCategoriesInput!]
 }
 
 input GameCreateNestedOneWithoutGame_evaluationInput {
   connect: GameWhereUniqueInput
-  connectOrCreate: GameCreateOrConnectWithoutgame_evaluationInput
+  connectOrCreate: GameCreateOrConnectWithoutGame_evaluationInput
   create: GameCreateWithoutGame_evaluationInput
 }
 
-input GameCreateOrConnectWithoutcategoriesInput {
+input GameCreateOrConnectWithoutCategoriesInput {
   create: GameCreateWithoutCategoriesInput!
   where: GameWhereUniqueInput!
 }
 
-input GameCreateOrConnectWithoutgame_evaluationInput {
+input GameCreateOrConnectWithoutGame_evaluationInput {
   create: GameCreateWithoutGame_evaluationInput!
   where: GameWhereUniqueInput!
 }
@@ -142,11 +142,11 @@ input GameEvaluationCreateInput {
 
 input GameEvaluationCreateNestedManyWithoutGameInput {
   connect: [GameEvaluationWhereUniqueInput!]
-  connectOrCreate: [GameEvaluationCreateOrConnectWithoutgameInput!]
+  connectOrCreate: [GameEvaluationCreateOrConnectWithoutGameInput!]
   create: [GameEvaluationCreateWithoutGameInput!]
 }
 
-input GameEvaluationCreateOrConnectWithoutgameInput {
+input GameEvaluationCreateOrConnectWithoutGameInput {
   create: GameEvaluationCreateWithoutGameInput!
   where: GameEvaluationWhereUniqueInput!
 }
