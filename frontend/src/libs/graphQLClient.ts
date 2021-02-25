@@ -4,12 +4,9 @@ import { Writable, writable } from 'svelte/store'
 const cache = new Map<string, unknown>()
 
 export const query = <
-  T extends keyof Pick<
-    typeof client,
-    ReturnType<typeof client[T]> extends Promise<{ __typename?: 'Query'; [k: string]: unknown }>
-      ? keyof typeof client
-      : never
-  >,
+  T extends ReturnType<typeof client[T]> extends Promise<{ __typename?: 'Query'; [k: string]: unknown }>
+    ? keyof typeof client
+    : never,
   A extends Parameters<typeof client[T]>[0],
   P extends Parameters<typeof client[T]>[1]
 >(
@@ -34,12 +31,9 @@ export const query = <
 }
 
 export const mutate = <
-  T extends keyof Pick<
-    typeof client,
-    ReturnType<typeof client[T]> extends Promise<{ __typename?: 'Mutation'; [k: string]: unknown }>
-      ? keyof typeof client
-      : never
-  >,
+  T extends ReturnType<typeof client[T]> extends Promise<{ __typename?: 'Mutation'; [k: string]: unknown }>
+    ? keyof typeof client
+    : never,
   A extends Parameters<typeof client[T]>[0],
   P extends Parameters<typeof client[T]>[1]
 >(
